@@ -25,5 +25,11 @@ fn main() {
     println!("{:?}", knight.possible_moves());
     knight.place_at(&mut game, "a3");
 
+    game.change_side().unwrap();
+
+    let bishop = game.pick("f8").unwrap();
+    println!("{:?}", bishop.possible_moves());
+    bishop.place_at(&mut game, "h6");
+
     game.show_board();
 }

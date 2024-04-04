@@ -95,7 +95,7 @@ impl Piece {
         piece_a.side == piece_b.side
     }
 
-    pub fn place_at(&self, game: &mut Game, pos: impl TryInto<Pos>) -> Result<(), GameError> {
+    pub fn place_at(self, game: &mut Game, pos: impl TryInto<Pos>) -> Result<(), GameError> {
         match pos.try_into() {
             Ok(pos) => {
                 if self.position == pos || self.can_move(pos) {
@@ -117,8 +117,9 @@ impl Piece {
         }
     }
 
-    pub fn place_back(&self, game: &mut Game) {
-        self.place_at(game, self.position).unwrap();
+    pub fn place_back(self, game: &mut Game) {
+        let position = self.position;
+        self.place_at(game, position).unwrap();
         game.state = GameState::Idle;
     }
 }
