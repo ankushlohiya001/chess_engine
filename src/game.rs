@@ -90,8 +90,20 @@ impl Game {
         }
     }
 
+    pub fn castle(&mut self) {
+        todo!("first learn rules of castling")
+    }
+
     pub fn request_draw(&mut self) {
         todo!("to request draw")
+    }
+
+    pub fn promote_pawn(&mut self, piece: Piece) {
+        todo!("apply rule of promotion")
+    }
+
+    pub fn en_passant_capture(&mut self, piece: Piece) {
+        todo!("learn how to perform")
     }
 
     pub fn resign(&mut self) {
