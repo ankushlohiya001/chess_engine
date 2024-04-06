@@ -27,9 +27,11 @@ fn main() {
 
     game.change_side().unwrap();
 
-    let bishop = game.pick("f8").unwrap();
-    println!("{:?}", bishop.possible_moves());
-    bishop.place_at(&mut game, "h6");
+    // let bishop = game.pick("f8").unwrap();
+    // println!("{:?}", bishop.possible_moves());
+    // bishop.place_at(&mut game, "h6");
+
+    // game.promote_pawn("h7").unwrap();
 
     game.show_board();
 }

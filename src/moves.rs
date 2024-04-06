@@ -2,9 +2,8 @@ use crate::{
     characters::moves,
     chess_board::ChessBoard,
     pieces::{Character, Side},
+    position::Pos,
 };
-
-pub use crate::chess_board::Pos;
 
 pub mod dirs {
     pub type Dir = (i32, i32);

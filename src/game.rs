@@ -2,11 +2,12 @@
 
 use std::mem;
 
-use crate::chess_board::{ChessBoard, Pos};
-use crate::errors::GameError;
-use crate::moves::Moving;
-use crate::pieces::Character;
-use crate::pieces::{Piece, Side};
+use crate::{
+    chess_board::ChessBoard,
+    errors::GameError,
+    pieces::{self, Character, Piece, Side},
+    position::Pos,
+};
 
 #[derive(Debug, Default)]
 pub enum GameState {
@@ -94,14 +95,30 @@ impl Game {
         todo!("first learn rules of castling")
     }
 
-    pub fn promote_pawn(&mut self, piece: &mut Piece) -> Result<(), GameError> {
-        let rank = piece.position.rank();
-        match rank {
-            1 | 8 => {
-                piece.character = Character::Queen(piece.side);
-                Ok(())
+    pub fn promote_pawn(&mut self, pos: impl TryInto<Pos>) -> Result<(), GameError> {
+        if let Ok(pos) = pos.try_into() {
+            let mut piece = self.pick(pos)?;
+            match pos.rank() {
+                2 => {
+                    if piece.side == Side::White {
+                        piece.character = Character::Queen(piece.side);
+                        piece.place_at(self, Pos(pos.file(), 8))
+                    } else {
+                        Err(GameError::InvalidMove)
+                    }
+                }
+                7 => {
+                    if piece.side == Side::Black {
+                        piece.character = Character::Queen(piece.side);
+                        piece.place_at(self, Pos(pos.file(), 8))
+                    } else {
+                        Err(GameError::InvalidMove)
+                    }
+                }
+                _ => Err(GameError::InvalidMove),
             }
-            _ => Err(GameError::InvalidMove),
+        } else {
+            Err(GameError::InvalidPosition)
         }
     }
 

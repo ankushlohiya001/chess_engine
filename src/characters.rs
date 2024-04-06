@@ -10,7 +10,7 @@ pub mod symbols {
 }
 
 pub mod positions {
-    use crate::chess_board::Pos;
+    use crate::position::Pos;
 
     pub const King: [Pos; 2] = [Pos('e', 1), Pos('e', 8)];
     pub const Queen: [Pos; 2] = [Pos('d', 1), Pos('d', 8)];

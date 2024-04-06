@@ -7,7 +7,8 @@ use crate::{
     chess_board::ChessBoard,
     errors::GameError,
     game::{Game, GameState},
-    moves::{Moving, Pos},
+    moves::Moving,
+    position::Pos,
 };
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
