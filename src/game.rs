@@ -94,16 +94,23 @@ impl Game {
         todo!("first learn rules of castling")
     }
 
-    pub fn request_draw(&mut self) {
-        todo!("to request draw")
-    }
-
-    pub fn promote_pawn(&mut self, piece: Piece) {
-        todo!("apply rule of promotion")
+    pub fn promote_pawn(&mut self, piece: &mut Piece) -> Result<(), GameError> {
+        let rank = piece.position.rank();
+        match rank {
+            1 | 8 => {
+                piece.character = Character::Queen(piece.side);
+                Ok(())
+            }
+            _ => Err(GameError::InvalidMove),
+        }
     }
 
     pub fn en_passant_capture(&mut self, piece: Piece) {
         todo!("learn how to perform")
+    }
+
+    pub fn request_draw(&mut self) {
+        todo!("to request draw")
     }
 
     pub fn resign(&mut self) {
