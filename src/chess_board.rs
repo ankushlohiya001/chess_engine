@@ -17,6 +17,10 @@ impl ChessBoard {
         ChessBoard { matrix: [None; 64] }
     }
 
+    pub fn get_matrix(&self) -> [Option<Character>; 64] {
+        self.matrix.clone()
+    }
+
     fn index_from_pos(pos: Pos) -> usize {
         let (row, col) = pos.at_matrix();
         row * 8 + col
