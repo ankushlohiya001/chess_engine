@@ -39,11 +39,25 @@ impl Pos {
         self.0
     }
 
+    pub fn index(&self) -> usize {
+        let (row, col) = self.at_matrix();
+        row * 8 + col
+    }
+
     pub fn at_matrix(&self) -> (usize, usize) {
         (
             (8 - self.rank()) as usize,
             self.file() as usize - 'a' as usize,
         )
+    }
+}
+
+impl From<(i32, i32)> for Pos {
+    fn from((mut x, y): (i32, i32)) -> Self {
+        x -= 1;
+        let file = (x as u8 + 'a' as u8) as char;
+        let rank = y as u8;
+        Pos(file, rank)
     }
 }
 

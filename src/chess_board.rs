@@ -21,11 +21,6 @@ impl ChessBoard {
         self.matrix.clone()
     }
 
-    fn index_from_pos(pos: Pos) -> usize {
-        let (row, col) = pos.at_matrix();
-        row * 8 + col
-    }
-
     pub fn place_character_init(&mut self) {
         for pos in positions::Bishop {
             let side = if pos.rank() < 4 {
@@ -83,14 +78,14 @@ impl ChessBoard {
     }
 
     pub fn character_at(&self, pos: Pos) -> Option<Character> {
-        let index = ChessBoard::index_from_pos(pos);
+        let index = pos.index();
         self.matrix[index]
     }
 
     pub fn pick_character(&mut self, pos: Pos) -> Result<Character, GameError> {
         if let Some(chracter) = self.character_at(pos) {
             // somehow replace these lines as are redundent
-            let index = ChessBoard::index_from_pos(pos);
+            let index = pos.index();
             self.matrix[index] = None;
 
             Ok(chracter)
@@ -100,7 +95,7 @@ impl ChessBoard {
     }
 
     pub fn place_character(&mut self, character: Character, pos: Pos) -> Result<(), GameError> {
-        let index = ChessBoard::index_from_pos(pos);
+        let index = pos.index();
         if self.matrix[index].is_none() {
             self.matrix[index] = Some(character);
             Ok(())
