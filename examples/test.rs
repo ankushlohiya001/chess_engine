@@ -9,12 +9,9 @@ fn main() {
 
     pawn.place_at(&mut game, "c3").unwrap();
 
-    game.change_side().unwrap();
     let pawn = game.pick("g7").unwrap();
 
     pawn.place_at(&mut game, "g5").unwrap();
-
-    game.change_side().unwrap();
 
     let bishop = game.pick("c1").unwrap();
 
@@ -24,8 +21,6 @@ fn main() {
     let knight = game.pick("b1").unwrap();
     println!("{:?}", knight.possible_moves());
     knight.place_at(&mut game, "a3");
-
-    game.change_side().unwrap();
 
     // let bishop = game.pick("f8").unwrap();
     // println!("{:?}", bishop.possible_moves());

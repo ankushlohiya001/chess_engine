@@ -99,14 +99,19 @@ impl Piece {
     pub fn place_at(self, game: &mut Game, pos: impl TryInto<Pos>) -> Result<(), GameError> {
         match pos.try_into() {
             Ok(pos) => {
-                if self.position == pos || self.can_move(pos) {
+                let is_current_pos = self.position == pos; // want to place back
+                if is_current_pos || self.can_move(pos) {
                     match self.surrounding {
                         Some(ref surrounding_ref) => {
                             let mut surrounding = surrounding_ref.borrow_mut();
                             let res = surrounding.place_character(self.character, pos);
                             game.board = mem::take(surrounding.deref_mut());
-                            game.state = GameState::PiecePlaced;
-                            res
+                            if is_current_pos {
+                                res
+                            } else {
+                                game.state = GameState::PiecePlaced;
+                                game.change_side() //implicitly changing side
+                            }
                         }
                         None => Err(GameError::AlonePiece),
                     }
@@ -121,7 +126,6 @@ impl Piece {
     pub fn place_back(self, game: &mut Game) {
         let position = self.position;
         self.place_at(game, position).unwrap();
-        game.state = GameState::Idle;
     }
 }
 
