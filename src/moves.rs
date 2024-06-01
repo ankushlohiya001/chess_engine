@@ -120,6 +120,9 @@ pub trait Moving {
     ) -> Vec<Pos> {
         let mut moves = Vec::with_capacity(9);
         let pos = self.current_position();
+
+        moves.push(pos); // as piece can be placed back
+
         let surounding = self.surrounding();
 
         let max = if infinite { 8 } else { 1 };
