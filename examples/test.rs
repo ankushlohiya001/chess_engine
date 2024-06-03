@@ -29,8 +29,10 @@ fn main() {
     piece.place_at(&mut game, "h3").unwrap();
 
     let piece = game.pick("g4").unwrap();
-    //println!("{:?}", piece.possible_moves());
+    println!("{:?}", piece.possible_moves());
     piece.place_at(&mut game, "h3").unwrap();
+
+    println!("{:?}", game.captured_black);
 
     game.show_board();
 }

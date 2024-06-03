@@ -94,9 +94,9 @@ impl ChessBoard {
         }
     }
 
-    pub fn place_character(&mut self, character: Character, pos: Pos) {
+    pub fn place_character(&mut self, character: Character, pos: Pos) -> Option<Character> {
         let index = pos.index();
-        self.matrix[index] = Some(character);
+        self.matrix[index].replace(character)
     }
 
     pub fn show(&self) {

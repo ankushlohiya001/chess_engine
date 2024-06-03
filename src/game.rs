@@ -22,8 +22,8 @@ pub struct Game {
     pub board: ChessBoard,
     pub state: GameState,
     side: Side,
-    captured_white: Vec<Character>,
-    captured_black: Vec<Character>,
+    pub captured_white: Vec<Character>,
+    pub captured_black: Vec<Character>,
 }
 
 impl Default for Game {
@@ -119,7 +119,7 @@ impl Game {
                 2 => {
                     if piece.side == Side::White {
                         piece.character = Character::Queen(piece.side);
-                        piece.place_at(self, Pos(pos.file(), 8))
+                        piece.place_at(self, Pos(pos.file(), 8)).map(|_a| ())
                     } else {
                         Err(GameError::InvalidMove)
                     }
@@ -127,7 +127,7 @@ impl Game {
                 7 => {
                     if piece.side == Side::Black {
                         piece.character = Character::Queen(piece.side);
-                        piece.place_at(self, Pos(pos.file(), 8))
+                        piece.place_at(self, Pos(pos.file(), 8)).map(|_a| ())
                     } else {
                         Err(GameError::InvalidMove)
                     }
