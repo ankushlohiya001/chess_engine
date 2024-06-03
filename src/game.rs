@@ -20,17 +20,27 @@ pub enum GameState {
 
 pub struct Game {
     pub board: ChessBoard,
-    side: Side,
     pub state: GameState,
+    side: Side,
+    captured_white: Vec<Character>,
+    captured_black: Vec<Character>,
 }
 
-impl Game {
-    pub fn new() -> Game {
+impl Default for Game {
+    fn default() -> Self {
         Game {
             board: ChessBoard::new(),
             side: Side::White,
             state: GameState::Idle,
+            captured_white: Vec::new(),
+            captured_black: Vec::new(),
         }
+    }
+}
+
+impl Game {
+    pub fn new() -> Game {
+        Game::default()
     }
 
     fn place_pieces(&mut self) {
@@ -48,6 +58,13 @@ impl Game {
 
     pub fn whose_turn(&self) -> Side {
         self.side
+    }
+
+    pub fn captured_pieces(&self, side: Side) -> &Vec<Character> {
+        match side {
+            Side::White => self.captured_white.as_ref(),
+            Side::Black => self.captured_black.as_ref(),
+        }
     }
 
     pub fn show_board(&self) {
@@ -136,12 +153,6 @@ impl Game {
 
     pub fn is_game_over(&self) -> bool {
         todo!("provide way to tell this")
-    }
-}
-
-impl Default for Game {
-    fn default() -> Self {
-        Self::new()
     }
 }
 

@@ -94,7 +94,9 @@ pub trait Moving {
         }
     }
 
-    fn can_move(&self, new_pos: Pos) -> bool;
+    fn can_move(&self, new_pos: Pos) -> bool {
+        self.possible_moves().contains(&new_pos)
+    }
 
     fn general_condition(
         current_character: Character,

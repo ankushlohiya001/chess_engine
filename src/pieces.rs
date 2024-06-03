@@ -141,10 +141,6 @@ impl Moving for Piece {
     fn surrounding(&self) -> std::cell::RefMut<'_, ChessBoard> {
         self.surrounding.as_ref().unwrap().borrow_mut()
     }
-
-    fn can_move(&self, new_pos: Pos) -> bool {
-        self.possible_moves().contains(&new_pos)
-    }
 }
 
 #[test]
