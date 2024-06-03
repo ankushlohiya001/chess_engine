@@ -28,7 +28,7 @@ impl ChessBoard {
             } else {
                 Side::Black
             };
-            self.place_character(Character::Bishop(side), pos).unwrap();
+            self.place_character(Character::Bishop(side), pos);
         }
 
         for pos in positions::Rook {
@@ -37,7 +37,7 @@ impl ChessBoard {
             } else {
                 Side::Black
             };
-            self.place_character(Character::Rook(side), pos).unwrap();
+            self.place_character(Character::Rook(side), pos);
         }
 
         for pos in positions::Knight {
@@ -46,7 +46,7 @@ impl ChessBoard {
             } else {
                 Side::Black
             };
-            self.place_character(Character::Knight(side), pos).unwrap();
+            self.place_character(Character::Knight(side), pos);
         }
 
         for pos in positions::King {
@@ -55,7 +55,7 @@ impl ChessBoard {
             } else {
                 Side::Black
             };
-            self.place_character(Character::King(side), pos).unwrap();
+            self.place_character(Character::King(side), pos);
         }
 
         for pos in positions::Queen {
@@ -64,7 +64,7 @@ impl ChessBoard {
             } else {
                 Side::Black
             };
-            self.place_character(Character::Queen(side), pos).unwrap();
+            self.place_character(Character::Queen(side), pos);
         }
 
         for pos in positions::Pawn {
@@ -73,7 +73,7 @@ impl ChessBoard {
             } else {
                 Side::Black
             };
-            self.place_character(Character::Pawn(side), pos).unwrap();
+            self.place_character(Character::Pawn(side), pos);
         }
     }
 
@@ -94,14 +94,9 @@ impl ChessBoard {
         }
     }
 
-    pub fn place_character(&mut self, character: Character, pos: Pos) -> Result<(), GameError> {
+    pub fn place_character(&mut self, character: Character, pos: Pos) {
         let index = pos.index();
-        if self.matrix[index].is_none() {
-            self.matrix[index] = Some(character);
-            Ok(())
-        } else {
-            Err(GameError::OccupiedCell)
-        }
+        self.matrix[index] = Some(character);
     }
 
     pub fn show(&self) {

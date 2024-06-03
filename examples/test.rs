@@ -20,13 +20,17 @@ fn main() {
 
     let knight = game.pick("b1").unwrap();
     println!("{:?}", knight.possible_moves());
-    knight.place_at(&mut game, "a3");
+    knight.place_at(&mut game, "a3").unwrap();
 
-    // let bishop = game.pick("f8").unwrap();
-    // println!("{:?}", bishop.possible_moves());
-    // bishop.place_at(&mut game, "h6");
+    let piece = game.pick("g5").unwrap();
+    piece.place_at(&mut game, "g4").unwrap();
 
-    // game.promote_pawn("h7").unwrap();
+    let piece = game.pick("h2").unwrap();
+    piece.place_at(&mut game, "h3").unwrap();
+
+    let piece = game.pick("g4").unwrap();
+    //println!("{:?}", piece.possible_moves());
+    piece.place_at(&mut game, "h3").unwrap();
 
     game.show_board();
 }

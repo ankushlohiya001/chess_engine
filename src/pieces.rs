@@ -104,13 +104,13 @@ impl Piece {
                     match self.surrounding {
                         Some(ref surrounding_ref) => {
                             let mut surrounding = surrounding_ref.borrow_mut();
-                            let res = surrounding.place_character(self.character, pos);
+                            surrounding.place_character(self.character, pos);
                             game.board = mem::take(surrounding.deref_mut());
-                            if is_current_pos {
-                                res
-                            } else {
+                            if !is_current_pos {
                                 game.state = GameState::PiecePlaced;
                                 game.change_side() //implicitly changing side
+                            } else {
+                                Ok(())
                             }
                         }
                         None => Err(GameError::AlonePiece),
