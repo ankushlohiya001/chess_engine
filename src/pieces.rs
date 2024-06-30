@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 
-use std::{cell::RefCell, mem, ops::DerefMut};
+use std::{cell::RefCell, fmt::format, mem, ops::DerefMut};
 
 use crate::{
     characters,
@@ -15,6 +15,15 @@ use crate::{
 pub enum Side {
     White,
     Black,
+}
+impl ToString for Side {
+    fn to_string(&self) -> String {
+        match self {
+            Self::White => "White",
+            Self::Black => "Black",
+        }
+        .to_owned()
+    }
 }
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
@@ -66,6 +75,22 @@ impl Character {
 
     pub fn same_side(character_a: Character, character_b: Character) -> bool {
         character_a.side() == character_b.side()
+    }
+}
+
+impl ToString for Character {
+    fn to_string(&self) -> String {
+        let character = match self {
+            Self::King(_) => "King",
+            Self::Queen(_) => "Queen",
+            Self::Knight(_) => "Knight",
+            Self::Bishop(_) => "Bishop",
+            Self::Rook(_) => "Rook",
+            Self::Pawn(_) => "Pawn",
+        };
+
+        let side = self.side().to_string();
+        format!("{character}_{side}")
     }
 }
 
@@ -160,4 +185,8 @@ fn piece_test() {
 
     assert_eq!(piece.side, Side::White);
     assert_eq!(piece.position, Pos('a', 1));
+
+    let character = Character::Knight(Side::Black);
+
+    assert_eq!(character.to_string(), "Knight_Black".to_owned());
 }
